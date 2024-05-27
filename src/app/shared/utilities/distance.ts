@@ -1,4 +1,5 @@
 import stops from '../data/stopsLatLon'
+import { NearbyStop } from '../types/listing';
 
 //Source: https://stackoverflow.com/q/18883601
 function getDistanceFromLatLonInKm(lat1: number,lon1: number,lat2: number,lon2: number) {
@@ -45,7 +46,7 @@ type Stop = {
   stop_longitude: number;
 }
 
-function findClosestStops(lat: number, lon: number) {
+function findClosestStops(lat: number, lon: number): NearbyStop[] {
   let nearbyStops: Stop[] = [];
   const offset: number = 0.02;
   for (const stop of stops) {

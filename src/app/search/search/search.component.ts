@@ -30,14 +30,11 @@ export class SearchComponent {
     maxPrice: number = 750000;
     maxDistanceFromTrain: number = 1;
 
-    isLoading: boolean = false;
-    error: string = '';
-
     searchResults$ = new Observable<DomainListingWithStops[]>();
 
     private apiKey?: string;
 
-    constructor(private searchService: SearchService, private route: ActivatedRoute) {
+    constructor(public searchService: SearchService, private route: ActivatedRoute) {
         this.onStateChanged(this.selectedState);
     }
 
@@ -53,8 +50,6 @@ export class SearchComponent {
     }
 
     search() {
-        this.isLoading = true;
-
         this.searchResults$ = this.searchService.getSearchResults({
             minBeds: this.minBeds,
             minBaths: this.minBaths,
@@ -63,11 +58,6 @@ export class SearchComponent {
             suburbs: this.suburbs,
             maxDistanceFromTrain: this.maxDistanceFromTrain
         }, this.selectedState, 1, 10);
-
-        this.searchResults$.subscribe({
-            error: error => this.error = error,
-            complete: () => this.isLoading = false
-        });
     }
 
 }

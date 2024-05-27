@@ -1,4 +1,14 @@
-const stops = [{
+
+
+export interface Stop {
+  stop_suburb: string;
+  stop_name: string;
+  stop_latitude: number;
+  stop_longitude: number;
+}
+
+
+const stops: Stop[] = [{
   "stop_suburb": "Pakenham",
   "stop_name": "Pakenham Station",
   "stop_latitude": -38.0806122,

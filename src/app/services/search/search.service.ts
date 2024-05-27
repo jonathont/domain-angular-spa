@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, signal } from '@angular/core';
-import { Observable, map } from 'rxjs';
+import { DestroyRef, Injectable, signal } from '@angular/core';
+import { Observable, concatMap, delay, map, of, shareReplay } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { environment as env } from '../../shared/environment';
-import DomainListingWrapper, { ClosestStop, DomainListingWithStops } from '../../shared/types/listing';
+import DomainListingWrapper, { NearbyStop, DomainListingWithStops } from '../../shared/types/listing';
 import findClosestStops from '../../shared/utilities/distance';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
@@ -28,7 +28,7 @@ export class SearchService {
     public searchError = signal<string | null>(null);
     public searchResults = signal<DomainListingWithStops[]>([]);
 
-    constructor(private http: HttpClient, private route: ActivatedRoute) {
+    constructor(private http: HttpClient, private destroyRef: DestroyRef, route: ActivatedRoute) {
         route.queryParams.subscribe(p => this.apiKey = p['api_key']);
     }
 
@@ -69,7 +69,7 @@ export class SearchService {
             });
 
         return resultsWithLatLng.map(x => {
-            const closestStops: ClosestStop[] = skip ? [] : findClosestStops(x.listing.propertyDetails.latitude, x.listing.propertyDetails.longitude);
+            const closestStops: NearbyStop[] = skip ? [] : findClosestStops(x.listing.propertyDetails.latitude, x.listing.propertyDetails.longitude);
             return { ...x, closestStops: closestStops };
         });
     }
@@ -91,18 +91,23 @@ export class SearchService {
     getSearchResults(filters: SearchFilters, state: string, page: number, pageSize: number) {
         let computeStopDistance = state === 'VIC';
 
-        let listings = 
+        let listings =
             this.fetchListings(filters, page, pageSize)
-                .pipe(map(results => this.addStopDistanceToListings(results, computeStopDistance)));
+                .pipe(shareReplay(1))
+                .pipe(map(results => this.addStopDistanceToListings(results, !computeStopDistance)));
 
-        if (computeStopDistance)                        
+        if (computeStopDistance)
             listings = listings.pipe(map(results => this.filterListingsByStopDistance(results, filters.maxDistanceFromTrain)));
 
         this.isLoading.set(true);
         this.searchError.set(null);
 
+        // Artificial delay for testing
+        if (!this.apiKey)
+            listings = listings.pipe(concatMap(item => of(item).pipe(delay(1000))));
+
         listings
-            .pipe(takeUntilDestroyed())
+            .pipe(takeUntilDestroyed(this.destroyRef))
             .subscribe({
                 next: results => this.searchResults.set(results),
                 error: error => this.searchError.set(error),

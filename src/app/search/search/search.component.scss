@@ -23,6 +23,10 @@
         max-width: 250px;
         width: 100%;
         border: 1px solid rgb(0, 117, 111);
+
+        &[disabled] {
+            background-color: rgb(165 217 214);            
+        }
     }
 
     .state-radios {
@@ -42,5 +46,9 @@
             border-color: rgb(0, 190, 179) !important;
             font-weight: 500;
         }
+    }
+
+    .numeric-search-field {
+        width: 100%;
     }
 }

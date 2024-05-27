@@ -76,15 +76,16 @@ export interface Listing {
     dateListed: string;
 }
 
-export interface ClosestStop {
+export interface NearbyStop {
     stop_name: string;
     distance: number;
     latitude: number;
     longitude: number;
+    bearing: number;
 }
 
 export interface DomainListingWithStops extends DomainListingWrapper {
-    closestStops: Array<ClosestStop>;
+    closestStops: Array<NearbyStop>;
 }
 
 export default interface DomainListingWrapper {

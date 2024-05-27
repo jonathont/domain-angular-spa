@@ -1,0 +1,37 @@
+.search-result {
+    .icon-bed,
+    .icon-cab {
+        margin-left: -2px;
+        margin-right: 5px;
+    }
+    .icon-bath {
+        margin-right: 3px;
+    }
+    .icon-train {
+        margin-left: -4px;
+        margin-right: 6px;
+    }
+    .icon-wrapper {
+        margin-right: 10px;
+        display: inline-block;
+    }
+
+    a.dark-link {
+        color: rgb(33, 37, 41);
+    }
+
+    .icon-direction::before {
+        rotate: inherit;
+    }
+}
+
+.search-result-wrapper {
+    width: 0;
+    flex: 1 1 0;
+    min-width: 300px;
+    max-width: 300px;
+}
+
+.search-result.archived {
+    opacity: 0.5;
+}

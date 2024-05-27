@@ -1,0 +1,92 @@
+<div class="my-2 me-sm-3 search-result-wrapper">
+    <div class="search-result h-100" [class]="{'isArchived': false}">
+        <div class="border border-secondary h-100 shadow d-flex flex-column ">
+            <div class="px-0 text-center overflow-hidden carousel">
+                <simple-carousel />
+                <!-- id={data.listing.listingSlug}
+                        urls={imageUrls}
+                        altText={imageAltText}
+                    /> -->
+                <listing-added-tag />
+                <!-- id={`addedTag_${data.listing.listingSlug}`} dateListed={data.listing.dateListed} /> -->
+            </div>
+            <listing-agency />
+            <!-- id={`agency_${data.listing.listingSlug}`}
+                    name={agent.name}
+                    logoUrl={agent.logoUrl}
+                    preferredColourHex={agent.preferredColourHex}
+                    contacts={agent.contacts}
+                    key={`agent_${data.listing.listingSlug}`} /> -->
+            <div class="px-3 pt-1 pb-2 mb-auto">
+                <span class="d-block fw-bold text-truncate">{{result.listing.priceDetails.displayPrice}}</span>
+                <span class="d-block">{{streetAddress}}</span>
+                <span class="d-block">
+                    {{result.listing.propertyDetails.suburb}} {{result.listing.propertyDetails.state}}
+                    {{result.listing.propertyDetails.postcode}}
+                    <a target="_blank" class="ms-1 dark-link"
+                        [href]="'https://www.google.com/maps/search/?api=1&query={{data.listing.propertyDetails.latitude}},{{data.listing.propertyDetails.longitude}}'">
+                        <i class="icon-map-o"></i>
+                    </a>
+                </span>
+                <span class="d-block mt-1">
+                    <listing-progress-bar />
+                    <!-- id={`listingProgressBar_${data.listing.listingSlug}`} dateListed={data.listing.dateListed} auctionScheduleTime={data.listing.auctionSchedule?.time} /> -->
+                </span>
+                <span class="d-block my-1">
+                    <span class="badge rounded-pill bg-secondary">
+                        {{propertyType}}
+                    </span>
+
+                    <span *ngIf="openTime" class="badge rounded-pill bg-success ms-2">
+                        Open {{openTimeDisplay}}
+                    </span>
+
+                    <span *ngIf="openTime && isAuctionTimeInFuture && auctionDate"
+                        class="badge rounded-pill bg-danger ms-2">
+                        Auction {{auctionDateDisplay === 'Tomorrow' ? 'tomorrow' : auctionDateDisplay}}
+                    </span>
+
+                    <listing-inspection-times *ngIf="openTime || isAuctionTimeInFuture" />
+                    <!-- id={`inspections_${data.listing.listingSlug}`}
+                            inspectionSchedule={data.listing.inspectionSchedule}
+                            auctionSchedule={data.listing.auctionSchedule}
+                        /> -->
+
+                </span>
+                <span class="d-block">
+                    <span class="icon-wrapper"><i
+                            class="icon-bed"></i>{{result.listing.propertyDetails.bedrooms}}</span>
+                    <span class="icon-wrapper"><i
+                            class="icon-bath"></i>{{result.listing.propertyDetails.bathrooms}}</span>
+                    <span class="icon-wrapper"><i
+                            class="icon-cab"></i>{{result.listing.propertyDetails.carspaces}}</span>
+
+                    <span *ngIf="auctionDate && isAuctionTimeInFuture" class="icon-wrapper text-danger">
+                        <i class="icon-hammer me-1"></i>
+                        {{auctionDateDisplay === 'tomorrow' ? 'Tomorrow' : auctionDateDisplay}}
+                    </span>
+                </span>
+                <span class="row mt-1">
+                    @for (stop of closestStops; track stop.name) {
+                    <span class="col-12" key={key}>
+                        <i class="icon-train"></i>
+                        {{stop.name.replace(' Station', '')}}: {{stop.distance}}
+                        <a target="_blank" class="ms-1 dark-link" [href]="stop.href">
+                            <i class="icon-direction" [style]="{'rotate': stop.rotation}"></i>
+                        </a>
+                    </span>
+                    }
+                </span>
+            </div>
+            <div class="row text-center mb-2">
+                <span class="col-6"><a href={{href}} target="_blank"
+                        class="text-success text-decoration-none">View</a></span>
+                <span class="col-6"><a href="javascript:(0);">{{false ? 'Show' : 'Hide'}}</a></span>
+                <!-- (click)="() => {
+                        // setIsArchived(!isArchived)
+                        // saveInLocalStorage(data.listing.listingSlug, !isArchived);
+                    }"> -->
+            </div>
+        </div>
+    </div>
+</div>
