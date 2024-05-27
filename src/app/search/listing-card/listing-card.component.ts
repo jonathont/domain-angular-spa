@@ -19,13 +19,13 @@ interface ListingStop {
 @Component({
     selector: 'listing-card',
     standalone: true,
-    imports: [CommonModule, 
-              SimpleCarouselComponent,
-              ListingAddedTagComponent,
-              ListingAgencyComponent, 
-              ListingInspectionTimesComponent,
-              ListingProgressBarComponent, 
-              SimpleCarouselComponent],
+    imports: [CommonModule,
+        SimpleCarouselComponent,
+        ListingAddedTagComponent,
+        ListingAgencyComponent,
+        ListingInspectionTimesComponent,
+        ListingProgressBarComponent,
+        SimpleCarouselComponent],
     templateUrl: './listing-card.component.html',
     styleUrl: './listing-card.component.scss'
 })
@@ -63,33 +63,33 @@ export class ListingCardComponent {
             .filter(x => x.category === "Image")
             .map(y => `${y.url}/500x500`);
 
-        this.getClosestStops(this.result.closestStops);
-        this.propertyType = this.getPropertyType(this.result.listing.propertyDetails.propertyType, 
-                                                 this.result.listing.propertyDetails.unitNumber, 
-                                                 this.result.listing.summaryDescription);
+        this.closestStops = this.getClosestStops(this.result.closestStops);
+        this.propertyType = this.getPropertyType(this.result.listing.propertyDetails.propertyType,
+                                                    this.result.listing.propertyDetails.unitNumber,
+                                                    this.result.listing.summaryDescription);
 
         this.isAuctionTimeInFuture = this.result?.listing?.auctionSchedule
             && this.result.listing.auctionSchedule.time
             && new Date(this.result.listing.auctionSchedule.time) > new Date()
             ? true : false;
 
-            this.openTimes = (this.result?.listing?.inspectionSchedule?.times ?? []).filter(x => new Date(x.openingTime) > new Date());
+        this.openTimes = (this.result?.listing?.inspectionSchedule?.times ?? []).filter(x => new Date(x.openingTime) > new Date());
 
-            this.openTime = this.openTimes[0]
-                ? getRelativeShortDate(this.openTimes[0].openingTime, true, false)
-                : undefined;
-            this.openTimeDisplay = this.openTime?.toLowerCase() === 'today' ? getTwelveHourTime(this.openTimes[0].openingTime) : this.openTime;
-        
-            this.auctionDate = this.result?.listing?.auctionSchedule?.time
-                ? getRelativeShortDate(this.result.listing.auctionSchedule.time, false, false)
-                : undefined;
-            this.auctionDateDisplay = this.auctionDate?.toLowerCase() === 'today' ? getTwelveHourTime(this.result.listing.auctionSchedule!.time) : this.auctionDate;
-        
+        this.openTime = this.openTimes[0]
+            ? getRelativeShortDate(this.openTimes[0].openingTime, true, false)
+            : undefined;
+        this.openTimeDisplay = this.openTime?.toLowerCase() === 'today' ? getTwelveHourTime(this.openTimes[0].openingTime) : this.openTime;
+
+        this.auctionDate = this.result?.listing?.auctionSchedule?.time
+            ? getRelativeShortDate(this.result.listing.auctionSchedule.time, false, false)
+            : undefined;
+        this.auctionDateDisplay = this.auctionDate?.toLowerCase() === 'today' ? getTwelveHourTime(this.result.listing.auctionSchedule!.time) : this.auctionDate;
+
 
     }
 
     private getClosestStops(stops: NearbyStop[]) {
-        stops
+        return stops
             .filter((_, i: number) => { return i < 2 })
             .map<ListingStop>(s => {
                 const distance = Math.round(s.distance * 10) / 10;
@@ -102,7 +102,7 @@ export class ListingCardComponent {
                     distance: distanceToDisplay + units,
                     href: `https://www.google.com/maps/dir/${this.result.listing.propertyDetails.latitude},${this.result.listing.propertyDetails.longitude}/${s.latitude},${s.longitude}/data=!3m1!4b1!4m2!4m1!3e2`
                 } as ListingStop;
-            })
+            });
     }
 
     getPropertyType(propertyType: string, unitNumber: string, description: string) {

@@ -2,10 +2,11 @@ import { HttpClient } from '@angular/common/http';
 import { DestroyRef, Injectable, signal } from '@angular/core';
 import { Observable, concatMap, delay, map, of, shareReplay } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { environment as env } from '../../shared/environment';
 import DomainListingWrapper, { NearbyStop, DomainListingWithStops } from '../../shared/types/listing';
+import { environment as env } from '../../shared/environment';
 import findClosestStops from '../../shared/utilities/distance';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { getRandomInspectionAndAuctionSchedules, getRandomListedDate } from '../../shared/utilities/staticDataHelper';
 
 export interface SearchFilters {
     minBeds: number;
@@ -102,9 +103,12 @@ export class SearchService {
         this.isLoading.set(true);
         this.searchError.set(null);
 
-        // Artificial delay for testing
-        if (!this.apiKey)
-            listings = listings.pipe(concatMap(item => of(item).pipe(delay(1000))));
+        // Artificial delay and dates for testing
+        if (!this.apiKey) {
+            listings = listings
+                .pipe(concatMap(item => of(item).pipe(delay(1000))))
+                .pipe(map(l => this.postProcessSampleData(l)))
+        }
 
         listings
             .pipe(takeUntilDestroyed(this.destroyRef))
@@ -116,6 +120,21 @@ export class SearchService {
 
         return listings;
     }
+
+    postProcessSampleData (data: DomainListingWithStops[]): DomainListingWithStops[] {
+        return data.map(x => {
+            // Set random listed date
+            x.listing.dateListed = getRandomListedDate();
+  
+            // Set random auction and inspection schedules
+            const { inspectionSchedule, auctionSchedule } = getRandomInspectionAndAuctionSchedules();
+            x.listing.auctionSchedule = auctionSchedule;
+            x.listing.inspectionSchedule = inspectionSchedule
+  
+            return x;
+        }).sort((a, b) => new Date(b.listing.dateListed).getTime() - new Date(a.listing.dateListed).getTime());
+    }
+  
 
 
 }

@@ -38,6 +38,13 @@ export class SearchComponent {
         this.onStateChanged(this.selectedState);
     }
 
+    ngOnInit() {
+        if (!this.apiKey || this.apiKey == '') {
+            this.suburbs = ['Melbourne'];
+            this.search();
+        }
+    }
+
     onStateChanged(newState: string) {
         this.suburbOptions = getSuburbOptionsForState(newState);
     }

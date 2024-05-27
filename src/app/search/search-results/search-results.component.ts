@@ -3,11 +3,12 @@ import { SearchService } from '../../services/search/search.service';
 import { CommonModule } from '@angular/common';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
+import { InspectionViewComponent } from '../inspection-view/inspection-view.component';
 
 @Component({
     selector: 'search-results',
     standalone: true,
-    imports: [CommonModule, NgbNavModule, ListingCardComponent],
+    imports: [CommonModule, NgbNavModule, ListingCardComponent, InspectionViewComponent],
     templateUrl: './search-results.component.html',
     styles: `
     

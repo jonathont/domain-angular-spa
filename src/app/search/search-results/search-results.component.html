@@ -34,11 +34,11 @@
             <p class="loading">Loading...</p>
           </div>
     
-          <ul *ngIf="service.searchResults() && !service.isLoading()">
+          <div *ngIf="service.searchResults() && !service.isLoading()" class="d-flex flex-wrap justify-content-around justify-content-md-start">
               @for (result of service.searchResults(); track result.listing.id) {
               <listing-card [result]="result" />
               }
-          </ul>
+          </div>
         </div>
       </div>
 		</ng-template>
@@ -46,6 +46,7 @@
 	<li [ngbNavItem]="2">
 		<button ngbNavLink>Inspection times</button>
 		<ng-template ngbNavContent>
+      <inspection-view [results]="service.searchResults()"></inspection-view>
       <!-- <InspectionTimesView results={results.filter(x => !isArchivedInStorage(x.listing.listingSlug))} /> -->
 		</ng-template>
 	</li>
