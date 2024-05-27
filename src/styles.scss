@@ -1,1 +1,102 @@
 /* You can add global styles to this file, and also import other style files */
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+      monospace;
+  }
+
+
+  #output {
+    min-height: 200px;
+  
+    #tabContainer {
+      .tab {
+        border-top: 1px solid white;
+        border-bottom: 1px solid rgb(179, 179, 179);
+        border-radius: 5px 5px 0 0;
+        cursor: pointer;
+      }
+  
+      .tab.active {
+        border: 1px solid rgb(179, 179, 179);
+        border-bottom: 1px solid white;
+      }
+  
+      .filler {
+        cursor: default;
+        border-bottom: 1px solid rgb(179, 179, 179);
+      }
+    }
+  }
+  
+  #footer {
+    color: rgb(179, 179, 179);
+    font-size: 8pt;
+  
+    a, a:visited {
+      color: rgb(0, 190, 179);
+    }
+  }
+  
+  label, input {
+    margin: 0 10px 10px 0;
+  }
+  
+  h1, h2, h3, h4 {
+    color: #555;
+  }
+  
+  h1, h2, h3 {
+    text-align: center;
+  }
+  
+  .border-secondary {
+    border-color: #ccc !important;
+  }
+  
+  .bg-dark {
+    background-color:rgb(52, 52, 52);
+  }
+  
+  .border-coloured {
+    border: 1px solid rgb(70, 142, 236);
+    box-shadow: 0 0 2px rgb(28, 126, 255);
+  }
+  
+  .bg-mid {
+    background-color: #aaa;
+  }
+  
+  html, body {
+    height: 100%;
+  }
+  
+  body {
+    min-width: 330px;
+  }
+  
+  #searchResultsContainer {
+    .form-check-input {
+      cursor: pointer;
+    }
+  }
+  
+  .load-more-button {
+    min-height: 34px;
+    background-color: rgb(0, 190, 179);
+    color: white;
+    font-weight: 500;
+    min-width: 300px;
+    max-width: 300px;
+    width: 100%;
+    border: 1px solid rgb(0, 117, 111);
+  }
+    

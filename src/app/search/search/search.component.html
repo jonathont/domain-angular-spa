@@ -1,0 +1,61 @@
+ <div id="search" class="p-2">
+
+    <div class="row mb-2">
+        <div class="col-12 px-3">
+            <span class="state-radios">
+                    @for (state of states; track state) {                        
+                        <input                            
+                            type="radio"
+                            [name]="state"
+                            [id]="'state_' + state"
+                            [value]="state"
+                            [(ngModel)]="selectedState"
+                            (ngModelChange)="onStateChanged(state)"
+                        />
+                        <label [htmlFor]="'state_' + state" 
+                               class="border border-secondary text-center me-2 mb-2 px-2 py-1"
+                               [class]="{'selected': state === selectedState}">
+                            {{state}}
+                        </label>
+                    }
+            </span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div className="col-lg-4 mx-1 mb-2">
+            <suburb-search 
+                (suburbsChanged)="onSuburbsChanged($event)" 
+                [state]="selectedState" 
+                [suburbOptions]="suburbOptions" />
+        </div>
+    </div>
+    <div class="row">
+        <numeric-search-field type="min" icon="icon-bed" [(defaultValue)]="minBeds" (defaultValueChange)="updateFilters()" [interval]=1 suffix="+"/>
+        <numeric-search-field type="min" icon="icon-bath" [(defaultValue)]="minBaths" (defaultValueChange)="updateFilters()" [interval]=1 suffix="+" />
+        <numeric-search-field type="min" icon="icon-cab" [(defaultValue)]="minCarSpaces" (defaultValueChange)="updateFilters()" [interval]=1 suffix="+"/>
+        <numeric-search-field type="max" icon="icon-dollar" [(defaultValue)]="maxPrice" (defaultValueChange)="updateFilters()" [interval]=10000 prefix="<" />
+
+        <numeric-search-field *ngIf="selectedState === 'VIC'" type="max" icon="icon-train" [(defaultValue)]="maxDistanceFromTrain" (defaultValueChange)="updateFilters()" [interval]=0.25 prefix="<" suffix=" km" />
+
+        <div class="col-sm-6 col-md-4 col-lg-3 px-3">
+            <div class="mt-2">
+                <input type="button" class="search-button px-3 rounded mb-1" value="Search" (click)="search()" [disabled]="suburbs == null || suburbs.length == 0" />
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div *ngIf="(searchResults$ | async)?.length == 0">
+            <p>No results</p>
+        </div>
+
+        <ul *ngIf="searchResults$ | async">
+            @for (result of searchResults$ | async; track result.listing.id) {
+            <li>{{result.listing.headline}}</li>
+            }
+        </ul>
+
+    </div>
+
+</div>

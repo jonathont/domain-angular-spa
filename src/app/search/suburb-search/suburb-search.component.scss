@@ -1,0 +1,93 @@
+.suburb-search {
+    .selected-suburbs {
+        text-align: left;
+
+        button {
+            margin-right: 5px;
+        }
+    }
+
+    .rbt-token {
+        background-color: #f0fffe;
+        border: 1px solid rgb(0, 190, 179);
+        border-radius: 5px;
+        color: rgb(85, 85, 85);
+        margin: 1px 6px 5px 0;
+        line-height: 14px;
+
+        .rbt-token-label {
+            font-size: 10px;
+            padding-top: 2px;
+            padding-bottom: 2px;
+        }
+
+        .rbt-token-remove-button {
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-right: 3px;
+            line-height: 100%;
+        }
+
+        .bbtn-close {
+            padding-top: 0;
+            padding-bottom: 0;
+            height: 100%;
+        }
+
+        .rbt-close-content {
+            margin: auto;
+        }
+    }
+
+    .rbt-input-main {
+        font-size: 12px;
+    }
+
+    .rbt-menu.dropdown-menu {
+        font-size: 12px;
+    }
+
+    .form-control {
+        padding: 0.375rem !important;
+        overflow-y: scroll;
+        max-height: 60px;
+    }
+
+    .rbt-input-multi.focus {
+        box-shadow: none !important;
+        border-color: rgb(0, 190, 179) !important;
+    }
+
+    .scroll-message {
+        font-size: 12px;
+        margin-top: -1px;
+    }
+
+    .badge {
+        cursor: pointer;
+    }
+
+    .badge i {
+        color: #bbb;
+        opacity: 0.6;
+    }
+
+    .badge i:hover {
+        opacity: 1.0
+    }
+
+    .badge .remove {
+        vertical-align: bottom;
+        top: 0;
+    }
+
+    .badge i {
+        margin: 0 0 0 .3em;
+    }
+
+    .badge i .glyphicon-white {
+        color: #fff;
+        margin-bottom: 2px;
+    }
+
+}

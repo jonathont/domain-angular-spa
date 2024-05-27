@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'domain-angular-spa17' title`, () => {
+  it(`should have the 'domain-angular-spa' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('domain-angular-spa17');
+    expect(app.title).toEqual('domain-angular-spa');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, domain-angular-spa17');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, domain-angular-spa');
   });
 });

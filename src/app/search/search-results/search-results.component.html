@@ -1,0 +1,44 @@
+<div class="border border-secondary rounded bg-white py-2" id="output">
+    <div class="px-3 mb-2 mt-1 d-flex" id="tabContainer">
+      <span class="tab px-3 py-2 active">Search results</span>
+      <span class="tab px-3 py-2">Inspection times</span>
+      <span class="tab filler flex-grow-1"></span>
+    </div>
+    <div class="mx-3 " id="searchResultsContainer">
+
+      <div class="row">
+        <div class="col-12">
+          <span>Showing resultsCount properties</span>
+          <span class="toggle ms-1 text-secondary">
+            <!-- onClick={() => setSuburbCountsOpen(!suburbCountsOpen)}> -->
+            <i class="icon-up-open"></i>
+          </span>
+
+          <div>Hawthorn (3), Hawthorn East (2), Blackburn (2)</div>
+        </div>
+      </div>
+      <div class="row my-1 ms-0">
+        <div class="col-12 form-check form-switch mb-0">
+          <input class="form-check-input mb-0" type="checkbox" id="showArchivedCheckbox"
+            defaultChecked={showArchived} onChange="" />
+          <label class="form-check-label mb-0" htmlFor="showArchivedCheckbox">Show hidden properties</label>
+        </div>
+      </div>
+
+      <div class="d-flex flex-wrap justify-content-around justify-content-md-start">
+
+        <!-- searchResultList.length > 0
+                    ? searchResultList -->
+        : <span *ngIf="service.searchResults().length == 0" class="d-block">No properties found.</span>
+
+      </div>
+      <!-- {isLoading
+            ? spinner
+            
+        }
+        {results && results.length > 0 && <div class="col-12 mx-0 mx-md-3 text-center text-md-start my-2">{loadMoreButton}</div>} -->
+    </div>
+    <!-- <div class={`mx-3 ${selectedTabId === 2 ? '' : 'd-none'}`}>
+        <InspectionTimesView results={results.filter(x => !isArchivedInStorage(x.listing.listingSlug))} />
+    </div> -->
+  </div>

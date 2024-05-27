@@ -1,0 +1,46 @@
+#search {
+    overflow-x: hidden;
+
+    textarea {
+        width: 100%;
+        min-height: 30px;
+    }
+
+    input[type=number] {
+        width: 100%;
+        max-width: 80px;
+    }
+
+    label {
+        margin-bottom: 0px;
+    }
+
+    .search-button {
+        min-height: 34px;
+        background-color: rgb(0, 190, 179);
+        color: white;
+        font-weight: 500;
+        max-width: 250px;
+        width: 100%;
+        border: 1px solid rgb(0, 117, 111);
+    }
+
+    .state-radios {
+        input[type="radio"] {
+            display: none;
+        }
+
+        label {
+            border-radius: 25px;
+            font-size: 10px;
+            min-width: 45px;
+        }
+
+        label.selected {
+            background-color: #f0fffe;;
+            color: rgb(0, 190, 179);
+            border-color: rgb(0, 190, 179) !important;
+            font-weight: 500;
+        }
+    }
+}

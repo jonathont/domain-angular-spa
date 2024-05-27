@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "domain-angular-spa17": {
+    "domain-angular-spa": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/domain-angular-spa17",
+            "outputPath": "dist/domain-angular-spa",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -30,9 +30,14 @@
               "src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/scss/bootstrap.scss",
+              "node_modules/bootstrap-icons/font/bootstrap-icons.css",
+              "src/assets/property-search-icons.css",   
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [
+			  "node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"			
+			]
           },
           "configurations": {
             "production": {
@@ -62,10 +67,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "domain-angular-spa17:build:production"
+              "buildTarget": "domain-angular-spa:build:production"
             },
             "development": {
-              "buildTarget": "domain-angular-spa17:build:development"
+              "buildTarget": "domain-angular-spa:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -73,7 +78,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "domain-angular-spa17:build"
+            "buildTarget": "domain-angular-spa:build"
           }
         },
         "test": {
