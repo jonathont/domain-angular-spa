@@ -2,17 +2,16 @@
     <div class="search-result h-100" [class]="{'isArchived': false}">
         <div class="border border-secondary h-100 shadow d-flex flex-column ">
             <div class="px-0 text-center overflow-hidden carousel">
-                <simple-carousel />
-                <!-- id={data.listing.listingSlug}
-                        urls={imageUrls}
-                        altText={imageAltText}
-                    /> -->
+                <simple-carousel [urls]="imageUrls" altText="imageAltText"/>
                 <listing-added-tag />
                 <!-- id={`addedTag_${data.listing.listingSlug}`} dateListed={data.listing.dateListed} /> -->
             </div>
-            <listing-agency />
+            <listing-agency [name]="agent?.name" 
+                            [logoUrl]="agent?.logoUrl" 
+                            [preferredColourHex]="agent!.preferredColourHex"
+                            [contacts]="agent?.contacts" />
             <!-- id={`agency_${data.listing.listingSlug}`}
-                    name={agent.name}
+                    
                     logoUrl={agent.logoUrl}
                     preferredColourHex={agent.preferredColourHex}
                     contacts={agent.contacts}

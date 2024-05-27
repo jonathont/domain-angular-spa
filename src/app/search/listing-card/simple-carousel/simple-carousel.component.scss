@@ -1,0 +1,61 @@
+
+.wrapper {
+    background-color: rgb(134, 134, 134);
+    height: 100%;
+}
+
+.back-button,
+.next-button {
+    position: absolute;
+    top: 80px;
+    border: none;
+    background-color: rgba(155, 155, 155, 0.463);
+    outline: none;
+    height: 40px;
+    width: 40px;
+    color: rgb(224, 224, 224);
+    border-radius: 50%;
+    padding-top: 2px;
+}
+
+.back-button:hover,
+.next-button:hover {
+    background-color: rgba(85, 85, 85, 0.463);
+    outline: none;
+    height: 40px;
+    width: 40px;
+    color: rgb(255, 255, 255);
+}
+
+.back-button {
+    left: 5px;
+    padding-right: 10px;
+}
+
+.next-button {
+    right: 5px;
+    padding-left: 10px;
+}
+
+.dots {
+    position: absolute;
+    bottom: 10px;
+    width: 80%;
+    left: 10%;
+    color: rgb(224, 224, 224);
+    font-size: 8px;
+
+    span {
+        background-color: rgba(155, 155, 155, 0.463);
+        border-radius: 8px;
+        padding: 2px 2px 2px 2px;
+    }
+}
+
+.img {
+    height: 100%;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}

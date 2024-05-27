@@ -39,7 +39,7 @@ export class ListingCardComponent {
     agent?: Advertiser;
 
     closestStops: ListingStop[] = [];
-    imaegUrls: string[] = [];
+    imageUrls: string[] = [];
     propertyType: string = '';
 
     isAuctionTimeInFuture: boolean = false;
@@ -59,7 +59,7 @@ export class ListingCardComponent {
             : `${this.result.listing.propertyDetails.streetNumber} ${this.result.listing.propertyDetails.street}`;
         this.agent = this.result.listing.advertiser;
         this.imageAltText = `Image for ${this.streetAddress}`;
-        this.imaegUrls = (this.result.listing.media ?? [])
+        this.imageUrls = (this.result.listing.media ?? [])
             .filter(x => x.category === "Image")
             .map(y => `${y.url}/500x500`);
 

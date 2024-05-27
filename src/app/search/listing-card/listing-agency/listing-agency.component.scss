@@ -1,0 +1,39 @@
+.agency-details {
+    width: 100%;
+    font-size: 14px;
+    position: relative;
+
+    .closed {
+        height: 30px;
+    }
+    .info {
+        max-width:200px;
+    }
+    .agency-name {
+        line-height: 30px;
+    }
+    .agency-logo {
+        max-width: 150px;
+        height: 30px;
+    }
+    .agent-photo {
+        border-radius: 50%;
+        height: 50px;
+        width: 50px;
+    }
+    .agent-name {
+        /* position: absolute;
+        top: 40px;
+        right: 10px; */
+        font-size: 10px;
+        max-width: 50px;
+        word-wrap: break-word;
+    }
+}
+.agency-details.closed {
+    .agent-photo {
+        position: absolute;
+        right: 5px;
+        bottom: -10px;
+    }
+}
