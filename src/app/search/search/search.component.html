@@ -36,7 +36,7 @@
         <numeric-search-field type="min" icon="icon-cab" [(defaultValue)]="minCarSpaces" (defaultValueChange)="updateFilters()" [interval]=1 suffix="+" class="col-sm-6 col-md-4 col-lg-3 col-xl-12 numeric-search-field mb-2 px-3"/>
         <numeric-search-field type="max" icon="icon-dollar" [(defaultValue)]="maxPrice" (defaultValueChange)="updateFilters()" [interval]=10000 prefix="<" class="col-sm-6 col-md-4 col-lg-3 col-xl-12 numeric-search-field mb-2 px-3"/>
 
-        <numeric-search-field *ngIf="selectedState === 'VIC'" type="max" icon="icon-train" [(defaultValue)]="maxDistanceFromTrain" (defaultValueChange)="updateFilters()" [interval]=0.25 prefix="<" suffix=" km" />
+        <numeric-search-field *ngIf="selectedState === 'VIC'" type="max" icon="icon-train" [(defaultValue)]="maxDistanceFromTrain" (defaultValueChange)="updateFilters()" [interval]=0.25 prefix="<" suffix=" km" class="col-sm-6 col-md-4 col-lg-3 col-xl-12 numeric-search-field mb-2 px-3" />
 
         <div class="col-sm-6 col-md-4 col-lg-3 px-3">
             <div class="mt-2">

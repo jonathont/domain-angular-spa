@@ -22,7 +22,7 @@ import { NgIf } from '@angular/common';
 		@if (!isOpen && contacts && contacts[0] && contacts[0].photoUrl) {
 		<img loading="lazy" class="agent-photo" 
 			[style]="{'border': '3px solid' + agentBackgroundColour}" 
-			[src]="contacts[0].photoUrl ?? agentPlaceholder" 
+			[src]="contacts[0].photoUrl || agentPlaceholder" 
 			alt="Primary agent" />
 		}
 

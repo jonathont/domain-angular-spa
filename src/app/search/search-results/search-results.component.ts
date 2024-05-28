@@ -1,14 +1,17 @@
-import { Component } from '@angular/core';
+import { Component, computed, signal } from '@angular/core';
 import { SearchService } from '../../services/search/search.service';
 import { CommonModule } from '@angular/common';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { ListingCardComponent } from '../listing-card/listing-card.component';
 import { InspectionViewComponent } from '../inspection-view/inspection-view.component';
+import { DomainListingWithStops } from '../../shared/types/listing';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { SuburbSummaryComponent } from '../suburb-summary/suburb-summary.component';
 
 @Component({
     selector: 'search-results',
     standalone: true,
-    imports: [CommonModule, NgbNavModule, ListingCardComponent, InspectionViewComponent],
+    imports: [CommonModule, NgbNavModule, ListingCardComponent, InspectionViewComponent, SuburbSummaryComponent],
     templateUrl: './search-results.component.html',
     styles: `
     
@@ -57,8 +60,34 @@ import { InspectionViewComponent } from '../inspection-view/inspection-view.comp
 export class SearchResultsComponent {
 
     activeTab: number = 1;
+    archivedSlugs = signal<string[]>([]);
 
-    constructor(public service: SearchService) {
+    showSuburbs: boolean = false;
+    showArchived = signal<boolean>(false);
 
+    filteredSearchResults = computed(() => 
+        this.service.searchResults()
+                    .filter(r => this.showArchived() || !this.isArchived(r))
+    );
+
+    constructor(public service: SearchService, private localStorage: LocalStorageService) {
+       this.archivedSlugs.set(localStorage.getArchived());
     }
+
+    ngOnInit() {
+    }
+
+    isArchived(result: DomainListingWithStops) {
+        return this.archivedSlugs().find(s => result.listing.listingSlug === s) != null;
+    }
+
+    onArchivedChanged(result: DomainListingWithStops, archived: boolean) {
+        if (archived && !this.isArchived(result))
+            this.archivedSlugs.set([...this.archivedSlugs(), result.listing.listingSlug]);
+        else if (!archived)
+            this.archivedSlugs.set(this.archivedSlugs().filter(s => s !== result.listing.listingSlug));
+        
+        this.localStorage.saveArchived(this.archivedSlugs());
+    }
+
 }

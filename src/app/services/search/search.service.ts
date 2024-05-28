@@ -1,11 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { DestroyRef, Injectable, signal } from '@angular/core';
-import { Observable, concatMap, delay, map, of, shareReplay } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { Observable, concatMap, delay, map, of, shareReplay } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import DomainListingWrapper, { NearbyStop, DomainListingWithStops } from '../../shared/types/listing';
 import { environment as env } from '../../shared/environment';
-import findClosestStops from '../../shared/utilities/distance';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { StopsService } from './stops.service';
 import { getRandomInspectionAndAuctionSchedules, getRandomListedDate } from '../../shared/utilities/staticDataHelper';
 
 export interface SearchFilters {
@@ -27,9 +27,13 @@ export class SearchService {
 
     public isLoading = signal<boolean>(false);
     public searchError = signal<string | null>(null);
+    public searchFilters = signal<SearchFilters | null>(null);
     public searchResults = signal<DomainListingWithStops[]>([]);
 
-    constructor(private http: HttpClient, private destroyRef: DestroyRef, route: ActivatedRoute) {
+    constructor(private http: HttpClient, 
+                private destroyRef: DestroyRef,
+                private stopsService: StopsService,
+                route: ActivatedRoute) {
         route.queryParams.subscribe(p => this.apiKey = p['api_key']);
     }
 
@@ -70,7 +74,7 @@ export class SearchService {
             });
 
         return resultsWithLatLng.map(x => {
-            const closestStops: NearbyStop[] = skip ? [] : findClosestStops(x.listing.propertyDetails.latitude, x.listing.propertyDetails.longitude);
+            const closestStops: NearbyStop[] = skip ? [] : this.stopsService.findClosestStops(x.listing.propertyDetails.latitude, x.listing.propertyDetails.longitude);
             return { ...x, closestStops: closestStops };
         });
     }
@@ -91,6 +95,7 @@ export class SearchService {
 
     getSearchResults(filters: SearchFilters, state: string, page: number, pageSize: number) {
         let computeStopDistance = state === 'VIC';
+        this.searchFilters.set(filters);
 
         let listings =
             this.fetchListings(filters, page, pageSize)

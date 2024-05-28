@@ -1,13 +1,12 @@
-import { CommonModule, NgFor, NgIf } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { SuburbSearchComponent } from '../suburb-search/suburb-search.component';
 import { NumericSearchFieldComponent } from '../numeric-search-field/numeric-search-field.component';
 import { SearchService } from '../../services/search/search.service';
 import { getSuburbOptionsForState, Option } from '../../shared/data/allSuburbOptions';
-import { Observable, switchMap } from 'rxjs';
+import { Observable } from 'rxjs';
 import { DomainListingWithStops } from '../../shared/types/listing';
-import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'search',
@@ -34,7 +33,7 @@ export class SearchComponent {
 
     private apiKey?: string;
 
-    constructor(public searchService: SearchService, private route: ActivatedRoute) {
+    constructor(public searchService: SearchService) {
         this.onStateChanged(this.selectedState);
     }
 

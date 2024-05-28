@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Advertiser, DomainListingWithStops, NearbyStop, Time } from '../../shared/types/listing';
 import { environment as env } from '../../shared/environment';
 import { getRelativeShortDate, getTwelveHourTime } from '../../shared/utilities/dateTimeHelper';
@@ -32,6 +32,8 @@ interface ListingStop {
 export class ListingCardComponent {
 
     @Input() result!: DomainListingWithStops;
+    @Input() archived: boolean = false;
+    @Output() archivedChanged = new EventEmitter<boolean>();
 
     href: string = '';
     streetAddress: string = '';
@@ -48,7 +50,7 @@ export class ListingCardComponent {
     openTimeDisplay?: string = '';
     auctionDate?: string = '';
     auctionDateDisplay?: string = '';
-
+    
     constructor() {
     }
 
@@ -103,6 +105,11 @@ export class ListingCardComponent {
                     href: `https://www.google.com/maps/dir/${this.result.listing.propertyDetails.latitude},${this.result.listing.propertyDetails.longitude}/${s.latitude},${s.longitude}/data=!3m1!4b1!4m2!4m1!3e2`
                 } as ListingStop;
             });
+    }
+
+    setIsArchived(archived: boolean) {
+        this.archived = archived;
+        this.archivedChanged.emit(archived);
     }
 
     getPropertyType(propertyType: string, unitNumber: string, description: string) {

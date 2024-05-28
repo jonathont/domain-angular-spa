@@ -5,21 +5,20 @@
 		<ng-template ngbNavContent>
       <div class="mx-3 " id="searchResultsContainer">
 
-        <div class="row">
+        <div *ngIf="!service.isLoading()" class="row">
           <div class="col-12">
-            <span>Showing {{service.searchResults().length}} properties</span>
-            <span class="toggle ms-1 text-secondary">
-              <!-- onClick={() => setSuburbCountsOpen(!suburbCountsOpen)}> -->
-              <i class="icon-up-open"></i>
+            <span>Showing {{filteredSearchResults().length}} properties</span>
+            <span class="toggle ms-1 text-secondary" (click)="showSuburbs = !showSuburbs">
+              <i [class]="{'icon-up-open': showSuburbs, 'icon-down-open': !showSuburbs}"></i>
             </span>
-    
-            <div>Hawthorn (3), Hawthorn East (2), Blackburn (2)</div>
+            <suburb-summary *ngIf="showSuburbs" [results]="filteredSearchResults()" [filterSuburbs]="service.searchFilters()?.suburbs" />
           </div>
         </div>
-        <div class="row my-1 ms-0">
+        <div *ngIf="!service.isLoading()" class="row my-1 ms-0">
           <div class="col-12 form-check form-switch mb-0">
-            <input class="form-check-input mb-0" type="checkbox" id="showArchivedCheckbox" defaultChecked={showArchived}
-              onChange="" />
+            <input class="form-check-input mb-0" type="checkbox" id="showArchivedCheckbox" 
+                    [defaultChecked]="showArchived()"
+                    (change)="showArchived.set(!showArchived())" />
             <label class="form-check-label mb-0" htmlFor="showArchivedCheckbox">Show hidden properties</label>
           </div>
         </div>
@@ -35,8 +34,8 @@
           </div>
     
           <div *ngIf="service.searchResults() && !service.isLoading()" class="d-flex flex-wrap justify-content-around justify-content-md-start">
-              @for (result of service.searchResults(); track result.listing.id) {
-              <listing-card [result]="result" />
+              @for (result of filteredSearchResults(); track result.listing.id) {
+              <listing-card [result]="result" [archived]="isArchived(result)" (archivedChanged)="onArchivedChanged(result, $event)" />
               }
           </div>
         </div>
@@ -46,19 +45,9 @@
 	<li [ngbNavItem]="2">
 		<button ngbNavLink>Inspection times</button>
 		<ng-template ngbNavContent>
-      <inspection-view [results]="service.searchResults()"></inspection-view>
-      <!-- <InspectionTimesView results={results.filter(x => !isArchivedInStorage(x.listing.listingSlug))} /> -->
+      <inspection-view [results]="filteredSearchResults()"></inspection-view>
 		</ng-template>
 	</li>
 </ul>
 
 <div [ngbNavOutlet]="nav" class="mt-2"></div>
-
-<!-- <div class="border border-secondary rounded bg-white py-2" id="output">
-  <div class="px-3 mb-2 mt-1 d-flex" id="tabContainer">
-    <span class="tab px-3 py-2 active">Search results</span>
-    <span class="tab px-3 py-2">Inspection times</span>
-    <span class="tab filler flex-grow-1"></span>
-  </div>
-
-</div> -->

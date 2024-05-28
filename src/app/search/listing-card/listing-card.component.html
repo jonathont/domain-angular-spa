@@ -1,5 +1,5 @@
 <div class="my-2 me-sm-3 search-result-wrapper">
-    <div class="search-result h-100" [class]="{'isArchived': false}">
+    <div class="search-result h-100" [class]="{'archived': archived}">
         <div class="border border-secondary h-100 shadow d-flex flex-column ">
             <div class="px-0 text-center overflow-hidden carousel">
                 <simple-carousel [urls]="imageUrls" altText="imageAltText"/>
@@ -72,11 +72,10 @@
             <div class="row text-center mb-2">
                 <span class="col-6"><a href={{href}} target="_blank"
                         class="text-success text-decoration-none">View</a></span>
-                <span class="col-6"><a href="javascript:(0);">{{false ? 'Show' : 'Hide'}}</a></span>
-                <!-- (click)="() => {
-                        // setIsArchived(!isArchived)
-                        // saveInLocalStorage(data.listing.listingSlug, !isArchived);
-                    }"> -->
+                <span class="col-6"><a href="javascript:(0);"
+                        class="text-decoration-none"
+                        [class]="{'text-danger': !archived}"
+                      (click)="setIsArchived(!archived)">{{archived ? 'Show' : 'Hide'}}</a></span>
             </div>
         </div>
     </div>

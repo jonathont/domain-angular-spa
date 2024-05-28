@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchResultsComponent } from './search-results.component';
+import { HttpClientModule } from '@angular/common/http';
+import { provideRouter } from '@angular/router';
 
 describe('SearchResultsComponent', () => {
   let component: SearchResultsComponent;
@@ -8,7 +10,8 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchResultsComponent]
+      imports: [SearchResultsComponent, HttpClientModule],
+      providers: [provideRouter([{path: '', component: SearchResultsComponent}])]      
     })
     .compileComponents();
     
