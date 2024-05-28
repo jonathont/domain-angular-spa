@@ -1,11 +1,11 @@
 @font-face {
     font-family: 'property-search-icons';
-    src: url('/assets/font/property-search-icons.eot?31531388');
-    src: url('/assets/font/property-search-icons.eot?31531388#iefix') format('embedded-opentype'),
-         url('/assets/font/property-search-icons.woff2?31531388') format('woff2'),
-         url('/assets/font/property-search-icons.woff?31531388') format('woff'),
-         url('/assets/font/property-search-icons.ttf?31531388') format('truetype'),
-         url('/assets/font/property-search-icons.svg?31531388#property-search-icons') format('svg');
+    src: url('./font/property-search-icons.eot?31531388');
+    src: url('./font/property-search-icons.eot?31531388#iefix') format('embedded-opentype'),
+         url('./font/property-search-icons.woff2?31531388') format('woff2'),
+         url('./font/property-search-icons.woff?31531388') format('woff'),
+         url('./font/property-search-icons.ttf?31531388') format('truetype'),
+         url('./font/property-search-icons.svg?31531388#property-search-icons') format('svg');
     font-weight: normal;
     font-style: normal;
   }
